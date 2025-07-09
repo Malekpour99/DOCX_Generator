@@ -35,6 +35,9 @@ def replace_text_in_paragraph(paragraph, replacements):
         for placeholder, replacement in replacements.items():
             if placeholder in run.text:
                 run.text = run.text.replace(placeholder, replacement).strip("{}")
+            if "{" in run.text or "}" in run.text:
+                # If there are still brackets, remove them
+                run.text = run.text.replace("{", "").replace("}", "")
 
 
 def replace_text_in_table(table, replacements):
