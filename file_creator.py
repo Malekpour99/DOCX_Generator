@@ -8,7 +8,8 @@ def read_csv_file(csv_path):
     """Read CSV file and return DataFrame"""
     try:
         # Read CSV with proper encoding for Persian/Farsi text
-        df = pd.read_csv(csv_path, encoding='utf-8')
+        # Use dtype=str to preserve phone numbers with leading zeros
+        df = pd.read_csv(csv_path, encoding='utf-8', dtype=str)
         print(f"Successfully loaded {len(df)} records from CSV")
         return df
     except Exception as e:
