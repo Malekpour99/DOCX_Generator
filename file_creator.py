@@ -55,23 +55,6 @@ def find_and_replace_in_document(doc, replacements):
     for table in doc.tables:
         replace_text_in_table(table, replacements)
 
-    # Replace in headers and footers
-    for section in doc.sections:
-        # Header
-        if section.header:
-            for paragraph in section.header.paragraphs:
-                replace_text_in_paragraph(paragraph, replacements)
-            for table in section.header.tables:
-                replace_text_in_table(table, replacements)
-
-        # Footer
-        if section.footer:
-            for paragraph in section.footer.paragraphs:
-                replace_text_in_paragraph(paragraph, replacements)
-            for table in section.footer.tables:
-                replace_text_in_table(table, replacements)
-
-
 def create_docx_from_template(template_doc, row_data, output_path):
     """Create a DOCX file from template and row data while preserving structure"""
     try:
