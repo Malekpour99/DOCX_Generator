@@ -223,41 +223,7 @@ def main():
     print(f"Successfully processed: {successful_count}")
     print(f"Failed: {failed_count}")
     print(f"Output directory: {output_directory}")
-
-def preview_template(template_file_path, csv_file_path):
-    """Preview the template with sample data"""
-    print("=== Template Preview with Sample Data ===")
-    
-    # Read template
-    template_doc = read_template_docx(template_file_path)
-    if template_doc is None:
-        return
-    
-    # Read CSV for sample data
-    df = read_csv_file(csv_file_path)
-    if df is None or len(df) == 0:
-        return
-    
-    # Use first row as sample
-    sample_row = df.iloc[0]
-    
-    print("Sample data from first CSV row:")
-    for column, value in sample_row.items():
-        print(f"  {column}: {value}")
-    
-    print("\nThis data will replace the following placeholders in the template:")
-    print("  {ستون آدرس گیرنده} -> آدرس گیرنده")
-    print("  {ستون تلفن گیرنده} -> تلفن گیرنده")
-    print("  {ستون کد سفارش} -> کد سفارش")
-    print("  {ستون نام گیرنده} -> نام گیرنده")
-    
-    # Create preview document
-    preview_path = "preview_sample.docx"
-    if create_docx_from_template(template_doc, sample_row, preview_path):
-        print(f"\nPreview document created: {preview_path}")
-        print("You can open this file to see how the final documents will look.")
-    
-    print("=" * 50)
+    print(f"Files ready for use!")
 
 def check_dependencies():
     """Check if required libraries are installed"""
@@ -315,11 +281,8 @@ if __name__ == "__main__":
     if not check_files_exist():
         exit(1)
     
-    # Show preview
-    # preview_template('Forward Template.docx', 'csv.csv')
-    
     # Ask for confirmation
-    user_input = input("\nDo you want to proceed with generating documents? (y/n): ").lower()
+    user_input = input("Do you want to proceed with generating documents? (y/n): ").lower()
     if user_input == 'y' or user_input == 'yes':
         main()
     else:
