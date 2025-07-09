@@ -34,7 +34,7 @@ def replace_text_in_paragraph(paragraph, replacements):
     for run in paragraph.runs:
         for placeholder, replacement in replacements.items():
             if placeholder in run.text:
-                run.text = run.text.replace(placeholder, replacement)
+                run.text = run.text.replace(placeholder, replacement).strip("{}")
 
 
 def replace_text_in_table(table, replacements):
