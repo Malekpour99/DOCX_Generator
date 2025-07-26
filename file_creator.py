@@ -4,13 +4,18 @@ import re
 from docx import Document
 import pandas as pd
 
+CSV_DATA_SEPARATOR = ","
+CSV_FILE = "csv.csv"
+TEMPLATE_FILE = "Forward Template.docx"
+OUTPUT_DIR = "generated_documents"
+
 
 def read_csv_file(csv_path):
     """Read CSV file and return DataFrame"""
     try:
         # Read CSV with proper encoding for Persian/Farsi text
         # Use dtype=str to preserve phone numbers with leading zeros
-        df = pd.read_csv(csv_path, encoding="utf-8", dtype=str)
+        df = pd.read_csv(csv_path, encoding="utf-8", dtype=str, sep=CSV_DATA_SEPARATOR)
         print(f"Successfully loaded {len(df)} records from CSV")
         return df
     except Exception as e:
@@ -57,6 +62,7 @@ def find_and_replace_in_document(doc, replacements):
     # Replace in tables
     for table in doc.tables:
         replace_text_in_table(table, replacements)
+
 
 def create_docx_from_template(template_doc, row_data, output_path):
     """Create a DOCX file from template and row data while preserving structure"""
@@ -165,9 +171,9 @@ def main():
     """Main function to process CSV and generate DOCX files"""
 
     # Configuration
-    csv_file_path = "csv.csv"  # Your CSV file path
-    template_file_path = "Forward Template.docx"  # Your template DOCX file path
-    output_directory = "generated_documents"  # Output directory for DOCX files
+    csv_file_path = CSV_FILE  # Your CSV file path
+    template_file_path = TEMPLATE_FILE  # Your template DOCX file path
+    output_directory = OUTPUT_DIR  # Output directory for DOCX files
 
     # Create output directory if it doesn't exist
     if not os.path.exists(output_directory):
@@ -224,7 +230,7 @@ def main():
 
 def check_files_exist():
     """Check if required files exist"""
-    required_files = ["csv.csv", "Forward Template.docx"]
+    required_files = [CSV_FILE, TEMPLATE_FILE]
     missing_files = []
 
     for file_path in required_files:
